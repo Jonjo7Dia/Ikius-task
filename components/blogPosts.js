@@ -1,23 +1,31 @@
-import styles from './blogPosts.module.css';
+import styles from "./blogPosts.module.css";
 import Link from "next/link";
 import Date from "../components/date";
-import { getSortedPostsData } from "../lib/posts";
+import Image from "next/image";
 
-export async function getStaticProps() {
-    const allPostsData = getSortedPostsData();
-    return {
-      props: {
-        allPostsData,
-      },
-    };
-  }
 
-export default function blogPosts(){
-    return <div></div>
+
+export default function BlogPosts(props) {
+  return (
+    <section className={``}>
+    <h2 >Blog</h2>
+    <ul >
+      {props.allPostsData.map(({ id, date, title }) => (
+        <li className={''} key={id}>
+          {title}
+          <br />
+          {id}
+          <br />
+          {date}
+        </li>
+      ))}
+    </ul>
+  </section>
+  );
 }
 
 
-{/* <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
+  /* <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
         <h2 className={utilStyles.headingLg}>Blog</h2>
         <ul className={utilStyles.list}>
           {allPostsData.map(({ id, date, title }) => (
@@ -32,4 +40,6 @@ export default function blogPosts(){
             </li>
           ))}
         </ul>
-      </section> */}
+      </section> */
+
+      

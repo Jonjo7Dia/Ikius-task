@@ -1,0 +1,6 @@
+.blogPosts{
+    width: 100%;
+    display: flex;
+    flex: row;
+    flex-wrap: wrap;
+}

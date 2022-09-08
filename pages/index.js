@@ -1,11 +1,20 @@
 import Head from "next/head";
 import Layout, { siteTitle } from "../components/layout";
 import Image from "next/image";
-
 import utilStyles from "../styles/utils.module.css";
-
-
 import LineBreaker from '../components/lineBreaker'
+import BlogPosts from '../components/blogPosts';
+import { getSortedPostsData } from "../lib/posts";
+
+export async function getStaticProps() {
+  const allPostsData = getSortedPostsData()
+  return {
+    props: {
+      allPostsData
+    }
+  }
+}
+
 
 export default function Home({ allPostsData }) {
   return (
@@ -30,8 +39,9 @@ export default function Home({ allPostsData }) {
       <LineBreaker></LineBreaker>
 
       </section>
-
+      <BlogPosts allPostsData={allPostsData}/>
       
     </Layout>
   );
 }
+
