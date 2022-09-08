@@ -6,6 +6,8 @@ import utilStyles from "../styles/utils.module.css";
 import { getSortedPostsData } from "../lib/posts";
 import Link from "next/link";
 import Date from "../components/date";
+import LineBreaker from '../components/lineBreaker'
+
 export async function getStaticProps() {
   const allPostsData = getSortedPostsData();
   return {
@@ -21,7 +23,8 @@ export default function Home({ allPostsData }) {
       <Head>
         <title>{siteTitle}</title>
       </Head>
-      <section className={utilStyles.headingMd}>
+      <section className={utilStyles.frontPage}>
+        <h1>My Blog</h1>
         <Image
           priority
           src="/images/profile.png"
@@ -32,14 +35,12 @@ export default function Home({ allPostsData }) {
         />
         <p>
           Hello I am <strong>Jonathan</strong> I am a software developer from
-          Denmark. I love learning about new technologies and coding! You can
-          contact me here{" "}
-          <a href="https://www.linkedin.com/in/svend-petter-jonathan-hjelmstrom-573882168/">
-            Linkedin
-          </a>
-          .
+          Denmark. I love learning about new technologies and coding!
         </p>
+      <LineBreaker></LineBreaker>
+
       </section>
+
       <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
         <h2 className={utilStyles.headingLg}>Blog</h2>
         <ul className={utilStyles.list}>
