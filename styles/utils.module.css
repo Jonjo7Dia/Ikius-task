@@ -4,6 +4,11 @@
     font-weight: 800;
     letter-spacing: -0.05rem;
     margin: 1rem 0;
+    width: 100%;
+      display: flex;
+      justify-content: center; 
+      align-items: center;
+      text-align: center;
   }
   
   .headingXl {
@@ -21,6 +26,7 @@
   }
   
   .headingMd {
+      
     font-size: 1.2rem;
     line-height: 1.5;
   }

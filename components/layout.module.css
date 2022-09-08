@@ -1,7 +1,8 @@
 .container {
-    max-width: 36rem;
+    width: 70%;
+    border: solid 1px black;
     padding: 0 1rem;
-    margin: 3rem auto 6rem;
+
   }
   
   .header {
@@ -12,4 +13,66 @@
   
   .backToHome {
     margin: 3rem 0 0;
+  }
+
+  .footer {
+      width: 100%;
+      background-color: black;
+      height: 173px;
+      display: flex;
+      justify-content: center;
+
+  }
+
+  .layout{
+      width: 100vw;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+  }
+  .footerList{
+      width: 100%;
+      height: 100%;
+      box-sizing: border;
+      padding-top: 1rem;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+
+      color: white;
+  }
+  .footerList div{
+      width: 30%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+
+  }
+  .footerLinks h1{
+      font-size: 1.5vmax;
+      font-weight: 700;
+  }
+  .footerLinks ul{
+      list-style-type: none;
+      font-size: 0.8vmax;
+      line-height: 200%;
+      text-decoration: underline;
+      font-weight: 400;
+  }
+  .footerDesc h1{
+    font-size: 2.2vmax;
+  }
+  .footerDesc h4{
+    font-size: 1.2vmax;
+    font-weight: 400;
+  }
+
+  @media screen and (max-width: 850px){
+      .container{
+          width: 98%;
+      }
   }
