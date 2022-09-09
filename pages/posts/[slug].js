@@ -1,39 +1,38 @@
 import Layout from "../../components/layout";
 import Head from "next/head";
 import Date from "../../components/date";
-import Image from "next/image";
-import {Image as DatoImage}  from 'react-datocms';
 
+import { Image, StructuredText } from "react-datocms";
 import Link from "next/link";
 import utilStyles from "../../styles/utils.module.css";
 import articleStyles from "../../styles/articles.module.css";
 import LineBreaker from "../../components/lineBreaker";
 import BlogPosts from "../../components/blogPosts";
-import {request} from '../../lib/datocms';
-export default function Post( props) {
-  console.log('props',props.postData.author.name);
+import { request } from "../../lib/datocms";
+export default function Post(props) {
+  console.log(props.postData)
   return (
     <Layout>
       <Head>
-        <title>{props.postData.author.name}</title>
+        <title>{props.postData.title}</title>
       </Head>
       <article className={articleStyles.blogArticle}>
         <div className={articleStyles.authorDate}>
           <div className={articleStyles.author}>
             <Image
-              priority
-              src="/images/profile.png"
-              className={utilStyles.borderCircle}
-              height={40}
-              width={40}
-              alt={"jonathan profile pic"}
+              data={props.postData.author.profilePicture.responsiveImage}
+              className={articleStyles.profilePic}
+              
             />
             <h1>{props.postData.author.name}</h1>
           </div>
           <Date dateString={props.postData.publishDate} />
         </div>
         <div className={articleStyles.banner}>
-          <DatoImage data={props.postData.coverImage.responsiveImage} className={articleStyles.image}/>
+          <Image
+            data={props.postData.coverImage.responsiveImage}
+            className={articleStyles.image}
+          />
         </div>
       </article>
       <div className={articleStyles.homeButton}>
@@ -46,10 +45,9 @@ export default function Post( props) {
       <article className={articleStyles.blogArticle}>
         <h1 className={articleStyles.headingXl}>{props.postData.title}</h1>
         <div className={articleStyles.lightText}></div>
-        <div
-          dangerouslySetInnerHTML={props.postData.content}
-          className={articleStyles.articleText}
-        />
+        <div className={articleStyles.articleText}>
+          <StructuredText data ={props.postData.content.value} />
+           </div>
       </article>
       <LineBreaker />
 
@@ -112,8 +110,8 @@ export async function getStaticPaths() {
   return {
     paths,
     fallback: false,
-  }
-};
+  };
+}
 
 const ARTICLE_QUERY = `query MyQuery($slug: String) {
   article(filter: {slug: {eq: $slug}}) {
@@ -122,6 +120,24 @@ const ARTICLE_QUERY = `query MyQuery($slug: String) {
     title
     author {
       name
+      profilePicture {
+        responsiveImage {
+          alt
+          aspectRatio
+          base64
+          bgColor
+          height
+          sizes
+          src
+          srcSet
+          title
+          webpSrcSet
+          width
+        }
+      }
+    }
+    content {
+      value
     }
     coverImage {
       url
@@ -142,12 +158,12 @@ const ARTICLE_QUERY = `query MyQuery($slug: String) {
     slug
   }
 }
-`
+`;
 
 export async function getStaticProps({ params }) {
   const post = await request({
     query: ARTICLE_QUERY,
-    variables: {slug: params.slug},
+    variables: { slug: params.slug },
   });
   const allPostsData = await request({
     query: HOMEPAGE_QUERY,
@@ -155,7 +171,7 @@ export async function getStaticProps({ params }) {
   return {
     props: {
       postData: post.article,
-      allPostsData
-    }
-  }
+      allPostsData,
+    },
+  };
 }

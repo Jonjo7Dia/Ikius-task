@@ -87,6 +87,12 @@
     max-width: none !important;
 }
 
+.profilePic {
+    border-radius: 9999px;
+    height: 40px;
+    width: 40px;
+    max-width: 40px !important;
+  }
 
 @media screen and (max-width: 750px){
     .banner{
