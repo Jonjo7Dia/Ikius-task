@@ -37,9 +37,8 @@ export default function Home({ allPostsData }) {
           Denmark. I love learning about new technologies and coding!
         </p>
       <LineBreaker></LineBreaker>
-
       </section>
-      <BlogPosts allPostsData={allPostsData}/>
+      <BlogPosts title={'Blog'} fontSize={'40px'} allPostsData={allPostsData}/>
       
     </Layout>
   );

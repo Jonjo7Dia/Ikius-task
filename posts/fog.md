@@ -1,5 +1,5 @@
 ---
-title: 'Fogging up Rendering'
+title: 'Fogging up Rendering & Lorem '
 date: '2020-01-01'
 ---
 
