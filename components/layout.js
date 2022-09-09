@@ -1,6 +1,5 @@
 import Head from "next/head";
 import styles from "./layout.module.css";
-import Link from "next/link";
 const name = "Jonathan Hjelmstrom's Ikius test case";
 export const siteTitle = "Ikius test case";
 
@@ -23,13 +22,7 @@ export default function Layout({ children, home }) {
           <meta name={name} content={siteTitle} />
         </Head>
         <main>{children}</main>
-        {!home && (
-          <div className={styles.backToHome}>
-            <Link href="/">
-              <a>← Back to home</a>
-            </Link>
-          </div>
-        )}
+    
       </div>
       <footer className={styles.footer}>
           <div className={styles.container}>
