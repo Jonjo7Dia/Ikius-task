@@ -37,7 +37,7 @@ export default function Layout({ children, home }) {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/posts/ssg-ssr">
+                  <Link href="/posts/pre-rendering">
                     <u> Link to second post</u>
                   </Link>
                 </li>
