@@ -7,8 +7,9 @@ import Link from "next/link";
 import utilStyles from "../../styles/utils.module.css";
 import articleStyles from "../../styles/articles.module.css";
 import { getSortedPostsData } from "../../lib/posts";
-
+import LineBreaker from '../../components/lineBreaker';
 import BlogPosts from "../../components/blogPosts";
+
 export default function Post({ postData, allPostsData }) {
   const name = "Jonathan Hjelmstrom";
   return (
@@ -35,7 +36,7 @@ export default function Post({ postData, allPostsData }) {
           <Image
             priority
             src={`/images/${postData.id}.png`}
-            height={250}
+            height={400}
             width={800}
             alt={"jonathan profile pic"}
           />
@@ -49,10 +50,12 @@ export default function Post({ postData, allPostsData }) {
         </Link>
       </div>
       <article className={articleStyles.blogArticle}>
-        <h1 className={utilStyles.headingXl}>{postData.title}</h1>
-        <div className={utilStyles.lightText}></div>
-        <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
+        <h1 className={articleStyles.headingXl}>{postData.title}</h1>
+        <div className={articleStyles.lightText}></div>
+        <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} className={articleStyles.articleText} />
+
       </article>
+      <LineBreaker/>
 
       <BlogPosts
         title={"Other Posts"}
