@@ -1,13 +1,12 @@
 import styles from "./blogPosts.module.css";
 import Link from "next/link";
 import Date from "../components/date";
-import Image from "next/image";
-import classes from "./blogPosts.module.css";
+import {Image } from 'react-datocms';
 
 export default function BlogPosts(props) {
   const allPostsData = props.allPostsData.allArticles;
   return (
-    <div className={classes.links}>
+    <div className={styles.links}>
       <div className={styles.listTitle}>
         <h1 style={{fontSize : props.fontSize}}>{props.title}</h1>
       </div>
@@ -17,14 +16,7 @@ export default function BlogPosts(props) {
           <Link href={`/posts/${data.id}`} key={data.id}>
             <div className={styles.blogPost}>
               <div className={styles.blogPhoto}>
-                <Image
-                  priority
-                  className={styles.blogImg}
-                  src={data.coverImage.url}
-                  width={"300"}
-                  height={"200"}
-                  alt={"jonathan profile pic"}
-                />
+                <Image data={data.coverImage.responsiveImage} className={styles.blogImg}/>
               </div>
               <div className={styles.blogData}>
                 <div className={styles.wrapper}>

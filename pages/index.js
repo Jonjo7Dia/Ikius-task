@@ -4,7 +4,6 @@ import Image from "next/image";
 import utilStyles from "../styles/utils.module.css";
 import LineBreaker from '../components/lineBreaker'
 import BlogPosts from '../components/blogPosts';
-import { getSortedPostsData } from "../lib/posts";
 import {request} from '../lib/datocms';
 
 const HOMEPAGE_QUERY = `query MyQuery {
@@ -19,30 +18,40 @@ const HOMEPAGE_QUERY = `query MyQuery {
     }
     coverImage {
       url
+      responsiveImage {
+        alt
+        aspectRatio
+        base64
+        bgColor
+        height
+        sizes
+        src
+        srcSet
+        title
+        webpSrcSet
+        width
+      }
     }
     publishDate
     slug
   }
 }
+
 `;
 export async function getStaticProps() {
-  const allPostsData = getSortedPostsData();
   const data = await request({
     query: HOMEPAGE_QUERY,
   });
   return {
     props: {
-      allPostsData,
       data
     }
   }
 }
 
 
-export default function Home({ allPostsData, data }) {
+export default function Home({ data }) {
 
-  console.log(JSON.stringify(data, null, 2));
-  console.log('home')
   return (
     <Layout home>
       <Head>
