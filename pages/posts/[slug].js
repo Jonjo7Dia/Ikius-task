@@ -4,11 +4,10 @@ import Date from "../../components/date";
 
 import { Image, StructuredText } from "react-datocms";
 import Link from "next/link";
-import utilStyles from "../../styles/utils.module.css";
 import articleStyles from "../../styles/articles.module.css";
 import LineBreaker from "../../components/lineBreaker";
 import BlogPosts from "../../components/blogPosts";
-import { request } from "../../lib/datocms";
+import { request, sortBlogPosts } from "../../lib/datocms";
 export default function Post(props) {
   console.log(props.postData)
   return (
@@ -171,7 +170,7 @@ export async function getStaticProps({ params }) {
   return {
     props: {
       postData: post.article,
-      allPostsData,
+      allPostsData: sortBlogPosts(allPostsData.allArticles)
     },
   };
 }

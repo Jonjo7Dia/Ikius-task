@@ -4,7 +4,7 @@ import Date from "../components/date";
 import {Image } from 'react-datocms';
 
 export default function BlogPosts(props) {
-  const allPostsData = props.allPostsData.allArticles;
+  const allPostsData = props.allPostsData;
   return (
     <div className={styles.links}>
       <div className={styles.listTitle}>

@@ -4,7 +4,7 @@ import Image from "next/image";
 import utilStyles from "../styles/utils.module.css";
 import LineBreaker from '../components/lineBreaker'
 import BlogPosts from '../components/blogPosts';
-import {request} from '../lib/datocms';
+import {request, sortBlogPosts} from '../lib/datocms';
 
 const HOMEPAGE_QUERY = `query MyQuery {
   allArticles {
@@ -44,14 +44,14 @@ export async function getStaticProps() {
   });
   return {
     props: {
-      data
+      data: sortBlogPosts(data.allArticles),
     }
   }
 }
 
 
 export default function Home({ data }) {
-
+console.log(data);
   return (
     <Layout home>
       <Head>
