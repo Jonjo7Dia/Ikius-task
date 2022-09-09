@@ -25,6 +25,8 @@
       display: flex;
       justify-content: center;
 
+
+
   }
 
   .layout{
@@ -73,7 +75,9 @@
     font-size: 1.2vmax;
     font-weight: 400;
   }
-
+.footerLinks li:hover{
+    cursor: pointer;
+}
   @media screen and (max-width: 850px){
       .container{
           width: 98%;

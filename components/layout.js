@@ -1,5 +1,7 @@
 import Head from "next/head";
 import styles from "./layout.module.css";
+import Link from "next/link";
+
 const name = "Jonathan Hjelmstrom's Ikius test case";
 export const siteTitle = "Ikius test case";
 
@@ -22,27 +24,31 @@ export default function Layout({ children, home }) {
           <meta name={name} content={siteTitle} />
         </Head>
         <main>{children}</main>
-    
       </div>
       <footer className={styles.footer}>
-          <div className={styles.container}>
-              <div className={styles.footerList}>
-                  <div className={styles.footerLinks}>
-                      <h1>Blog Posts</h1>
-                      <ul>
-                        <li>Link to first post</li>
-                        <li>Link to second post</li>
-                      </ul>
-                  </div>
-                  <div className={styles.footerDesc}>
-                  <h1>Footer</h1>
-                <h4>Ikius Recruitment Task</h4>
-
-              </div>
-              </div>
-              
-
+        <div className={styles.container}>
+          <div className={styles.footerList}>
+            <div className={styles.footerLinks}>
+              <h1>Blog Posts</h1>
+              <ul>
+                <li>
+                  <Link href="/posts/ssg-ssr">
+                    <u> Link to first post</u>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/posts/ssg-ssr">
+                    <u> Link to second post</u>
+                  </Link>
+                </li>
+              </ul>
+            </div>
+            <div className={styles.footerDesc}>
+              <h1>Footer</h1>
+              <h4>Ikius Recruitment Task</h4>
+            </div>
           </div>
+        </div>
       </footer>
     </div>
   );
