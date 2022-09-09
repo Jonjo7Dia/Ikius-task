@@ -13,7 +13,7 @@ export default function BlogPosts(props) {
       
       <div className={styles.blogPosts}>
         {allPostsData.map((data) => (
-          <Link href={`/posts/${data.id}`} key={data.id}>
+          <Link href={`/posts/${data.slug}`} key={data.id}>
             <div className={styles.blogPost}>
               <div className={styles.blogPhoto}>
                 <Image data={data.coverImage.responsiveImage} className={styles.blogImg}/>
