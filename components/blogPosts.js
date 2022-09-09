@@ -5,6 +5,7 @@ import Image from "next/image";
 import classes from "./blogPosts.module.css";
 
 export default function BlogPosts(props) {
+  const allPostsData = props.allPostsData.allArticles;
   return (
     <div className={classes.links}>
       <div className={styles.listTitle}>
@@ -12,14 +13,14 @@ export default function BlogPosts(props) {
       </div>
       
       <div className={styles.blogPosts}>
-        {props.allPostsData.map(({ id, date, title }) => (
-          <Link href={`/posts/${id}`}>
+        {allPostsData.map((data) => (
+          <Link href={`/posts/${data.id}`} key={data.id}>
             <div className={styles.blogPost}>
               <div className={styles.blogPhoto}>
                 <Image
                   priority
                   className={styles.blogImg}
-                  src={`/images/${id}.png`}
+                  src={data.coverImage.url}
                   width={"300"}
                   height={"200"}
                   alt={"jonathan profile pic"}
@@ -27,9 +28,9 @@ export default function BlogPosts(props) {
               </div>
               <div className={styles.blogData}>
                 <div className={styles.wrapper}>
-                  <div className={styles.blogTitle}>{title}</div>
+                  <div className={styles.blogTitle}>{data.title}</div>
                   <div className={styles.blogDate}>
-                    <Date dateString={date} />
+                    <Date dateString={data.publishDate} />
                   </div>
                 </div>
               </div>

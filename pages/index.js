@@ -5,18 +5,44 @@ import utilStyles from "../styles/utils.module.css";
 import LineBreaker from '../components/lineBreaker'
 import BlogPosts from '../components/blogPosts';
 import { getSortedPostsData } from "../lib/posts";
+import {request} from '../lib/datocms';
 
+const HOMEPAGE_QUERY = `query MyQuery {
+  allArticles {
+    id
+    title
+    author {
+      name
+    }
+    content {
+      value
+    }
+    coverImage {
+      url
+    }
+    publishDate
+    slug
+  }
+}
+`;
 export async function getStaticProps() {
-  const allPostsData = getSortedPostsData()
+  const allPostsData = getSortedPostsData();
+  const data = await request({
+    query: HOMEPAGE_QUERY,
+  });
   return {
     props: {
-      allPostsData
+      allPostsData,
+      data
     }
   }
 }
 
 
-export default function Home({ allPostsData }) {
+export default function Home({ allPostsData, data }) {
+
+  console.log(JSON.stringify(data, null, 2));
+  console.log('home')
   return (
     <Layout home>
       <Head>
@@ -38,7 +64,7 @@ export default function Home({ allPostsData }) {
         </p>
       <LineBreaker></LineBreaker>
       </section>
-      <BlogPosts title={'Blog'} fontSize={'40px'} allPostsData={allPostsData}/>
+      <BlogPosts title={'Blog'} fontSize={'40px'} allPostsData={data}/>
       
     </Layout>
   );
