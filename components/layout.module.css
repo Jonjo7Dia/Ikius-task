@@ -82,4 +82,21 @@
       .container{
           width: 98%;
       }
+      .footerDesc h1{
+        font-size: 25px;
+      }
+      .footerList div{
+          width: 30%;
+      }
+      .footerDesc h4{
+        font-size: 15px;
+        font-weight: 400;
+      }
+      .footerLinks h1{
+          font-size: 20px;
+      }
+      .footerLinks li{
+          font-size: 15px;
+          line-height: 1.5;
+      }
   }

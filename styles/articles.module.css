@@ -71,7 +71,19 @@
 .articleText ul{
     width: 90%;
     margin-left: 4%;
-
-    list-style-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='9' height='9' viewBox='-1 -1 2 2'><circle r='0.5' /></svg>");
+    list-style-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='9' height='9' viewBox='-1 -1 1  2'><circle r='0.5' /></svg>");
     margin-top: 1rem;
+}
+
+
+@media screen and (max-width: 750px){
+    .banner{
+        height: 11rem;
+    }
+    .headingXl{
+        font-size: 25px;
+    }
+    .articleText{
+        font-size: 15px;
+    }
 }
