@@ -1,5 +1,5 @@
 import Head from "next/head";
-import Layout, { siteTitle } from "../components/layout";
+import Layout from "../components/layout";
 import {Image, StructuredText, renderMetaTags } from "react-datocms";
 
 import utilStyles from "../styles/utils.module.css";
