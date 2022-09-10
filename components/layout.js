@@ -5,7 +5,7 @@ import Link from "next/link";
 const name = "Jonathan Hjelmstrom's Ikius test case";
 export const siteTitle = "Ikius test case";
 
-export default function Layout({ children, home }) {
+export default function Layout({ children, links}) {
   return (
     <div className={styles.layout}>
       <div className={styles.container}>
@@ -32,12 +32,12 @@ export default function Layout({ children, home }) {
               <h1>Blog Posts</h1>
               <ul>
                 <li>
-                  <Link href="/posts/ssg-ssr">
+                  <Link href={`/posts/${links[0]}`}>
                     <u> Link to first post</u>
                   </Link>
                 </li>
                 <li>
-                  <Link href="/posts/pre-rendering">
+                  <Link href={`/posts/${links[1]}`}>
                     <u> Link to second post</u>
                   </Link>
                 </li>

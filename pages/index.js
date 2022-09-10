@@ -1,76 +1,43 @@
 import Head from "next/head";
 import Layout, { siteTitle } from "../components/layout";
-import Image from "next/image";
+import {Image, StructuredText } from "react-datocms";
+
 import utilStyles from "../styles/utils.module.css";
 import LineBreaker from '../components/lineBreaker'
 import BlogPosts from '../components/blogPosts';
 import {request, sortBlogPosts} from '../lib/datocms';
+import {blogPostsQuery, homepageQuery} from '../lib/APIqueries'
 
-const HOMEPAGE_QUERY = `query MyQuery {
-  allArticles {
-    id
-    title
-    author {
-      name
-    }
-    content {
-      value
-    }
-    coverImage {
-      url
-      responsiveImage {
-        alt
-        aspectRatio
-        base64
-        bgColor
-        height
-        sizes
-        src
-        srcSet
-        title
-        webpSrcSet
-        width
-      }
-    }
-    publishDate
-    slug
-  }
-}
-
-`;
 export async function getStaticProps() {
   const data = await request({
-    query: HOMEPAGE_QUERY,
+    query: blogPostsQuery(),
   });
+  const home = await request({
+    query: homepageQuery()
+  })
   return {
     props: {
       data: sortBlogPosts(data.allArticles),
+      home,
     }
   }
 }
 
 
-export default function Home({ data }) {
-console.log(data);
+export default function Home({ data,home }) {
+  const links=[data[0].slug, data[1].slug];
   return (
-    <Layout home>
+    <Layout links={links}>
       <Head>
         <title>{siteTitle}</title>
       </Head>
       <section className={utilStyles.frontPage}>
-        <h1>My Blog</h1>
+        <h1>{home.blog.title}</h1>
         <Image
-          priority
-          src="/images/profile.png"
+          data={home.blog.author.profilePicture.responsiveImage}
           className={utilStyles.borderCircle}
-          height={144}
-          width={144}
-          alt={"jonathan profile pic"}
         />
-        <p>
-          Hello I am <strong>Jonathan</strong> I am a software developer from
-          Denmark. I love learning about new technologies and coding!
-        </p>
+          <StructuredText data={home.blog.description.value} />
       <LineBreaker></LineBreaker>
       </section>
       <BlogPosts title={'Blog'} fontSize={'40px'} allPostsData={data}/>

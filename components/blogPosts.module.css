@@ -2,14 +2,12 @@
     width: 100%;
     display: flex;
     flex: row;
-    gap: .5rem;
+    gap: 2rem;
     flex-wrap: wrap;
-    justify-content: flex-start;
+    justify-content: center;
     margin-bottom: 4rem;
 }
-.links{
-    padding-left: 1rem;
-}
+
 .listTitle{
     width: 100%;
     margin-bottom: 1rem;
