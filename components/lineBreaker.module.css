@@ -7,7 +7,7 @@
     margin-bottom: 2rem;
 }
 
-@media screen and (max-width: 750px){
+@media screen and (max-width: 800px){
     .lineBreaker{
         width: 95%;
     }
