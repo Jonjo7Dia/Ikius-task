@@ -1,12 +1,12 @@
 import Head from "next/head";
 import Layout, { siteTitle } from "../components/layout";
-import {Image, StructuredText } from "react-datocms";
+import {Image, StructuredText, renderMetaTags } from "react-datocms";
 
 import utilStyles from "../styles/utils.module.css";
 import LineBreaker from '../components/lineBreaker'
 import BlogPosts from '../components/blogPosts';
 import {request, sortBlogPosts} from '../lib/datocms';
-import {blogPostsQuery, homepageQuery} from '../lib/APIqueries'
+import {blogPostsQuery, homepageQuery, seoHomepageQuery} from '../lib/APIqueries'
 
 export async function getStaticProps() {
   const data = await request({
@@ -14,22 +14,26 @@ export async function getStaticProps() {
   });
   const home = await request({
     query: homepageQuery()
+  });
+  const seoTags = await request({
+    query: seoHomepageQuery(),
   })
   return {
     props: {
       data: sortBlogPosts(data.allArticles),
       home,
+      seoTags,
     }
   }
 }
 
 
-export default function Home({ data,home }) {
+export default function Home({ data,home,seoTags }) {
   const links=[data[0].slug, data[1].slug];
   return (
     <Layout links={links}>
       <Head>
-        <title>{siteTitle}</title>
+        {renderMetaTags(seoTags.blog.seo)}
       </Head>
       <section className={utilStyles.frontPage}>
         <h1>{home.blog.title}</h1>

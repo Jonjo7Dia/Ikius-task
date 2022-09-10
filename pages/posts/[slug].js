@@ -1,36 +1,37 @@
 import Layout from "../../components/layout";
 import Head from "next/head";
 import Date from "../../components/date";
-import { Image, StructuredText } from "react-datocms";
+import { Image, StructuredText, renderMetaTags} from "react-datocms";
 import Link from "next/link";
 import articleStyles from "../../styles/articles.module.css";
 import LineBreaker from "../../components/lineBreaker";
 import BlogPosts from "../../components/blogPosts";
 import { request, sortBlogPosts } from "../../lib/datocms";
-import {pathQuery,articleQuery, blogPostsQuery} from '../../lib/APIqueries';
-export default function Post(props) {
-  const links=[props.allPostsData[0].slug, props.allPostsData[1].slug];
+import {pathQuery,articleQuery, blogPostsQuery, seoArticleQuery} from '../../lib/APIqueries';
 
+
+export default function Post({postData, seoTags, allPostsData}) {
+  const links=[allPostsData[0].slug, allPostsData[1].slug];
   return (
     <Layout links={links}>
       <Head>
-        <title>{props.postData.title}</title>
+      {renderMetaTags(seoTags.article.seo)}
       </Head>
       <article className={articleStyles.blogArticle}>
         <div className={articleStyles.authorDate}>
           <div className={articleStyles.author}>
             <Image
-              data={props.postData.author.profilePicture.responsiveImage}
+              data={postData.author.profilePicture.responsiveImage}
               className={articleStyles.profilePic}
               
             />
-            <h1>{props.postData.author.name}</h1>
+            <h1>{postData.author.name}</h1>
           </div>
-          <Date dateString={props.postData.publishDate} />
+          <Date dateString={postData.publishDate} />
         </div>
         <div className={articleStyles.banner}>
           <Image
-            data={props.postData.coverImage.responsiveImage}
+            data={postData.coverImage.responsiveImage}
             className={articleStyles.image}
           />
         </div>
@@ -43,10 +44,9 @@ export default function Post(props) {
         </Link>
       </div>
       <article className={articleStyles.blogArticle}>
-        <h1 className={articleStyles.headingXl}>{props.postData.title}</h1>
-        <div className={articleStyles.lightText}></div>
+        <h1 className={articleStyles.headingXl}>{postData.title}</h1>
         <div className={articleStyles.articleText}>
-          <StructuredText data ={props.postData.content.value} />
+          <StructuredText data ={postData.content.value} />
            </div>
       </article>
       <LineBreaker />
@@ -54,7 +54,7 @@ export default function Post(props) {
       <BlogPosts
         title={"Other Posts"}
         fontSize={"24px"}
-        allPostsData={props.allPostsData}
+        allPostsData={allPostsData}
       />
     </Layout>
   );
@@ -81,10 +81,16 @@ export async function getStaticProps({ params }) {
   const allPostsData = await request({
     query: blogPostsQuery(),
   });
+  const seoTags = await request({
+    query: seoArticleQuery(),
+    variables: { slug: params.slug },
+
+  })
   return {
     props: {
       postData: post.article,
-      allPostsData: sortBlogPosts(allPostsData.allArticles)
+      allPostsData: sortBlogPosts(allPostsData.allArticles),
+      seoTags,
     },
   };
 }
