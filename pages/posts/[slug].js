@@ -1,29 +1,47 @@
 import Layout from "../../components/layout";
 import Head from "next/head";
 import Date from "../../components/date";
-import { Image, StructuredText, renderMetaTags} from "react-datocms";
+import { Image, StructuredText, renderMetaTags } from "react-datocms";
 import Link from "next/link";
 import articleStyles from "../../styles/articles.module.css";
 import LineBreaker from "../../components/lineBreaker";
 import BlogPosts from "../../components/blogPosts";
 import { request, sortBlogPosts } from "../../lib/datocms";
-import {pathQuery,articleQuery, blogPostsQuery, seoArticleQuery} from '../../lib/APIqueries';
+import { schemaData } from "../../lib/schemaData";
 
+import {
+  pathQuery,
+  articleQuery,
+  blogPostsQuery,
+  seoArticleQuery,
+} from "../../lib/APIqueries";
 
-export default function Post({postData, seoTags, allPostsData}) {
-  const links=[allPostsData[0].slug, allPostsData[1].slug];
+export default function Post({ postData, seoTags, allPostsData }) {
+  const links = [allPostsData[0].slug, allPostsData[1].slug];
   return (
+    <>
+    <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            schemaData(
+              postData.author.name,
+              postData.title,
+              postData.content.value,
+              postData.coverImage.url,
+              postData.publishDate,
+            )
+          ),
+        }}
+      />
     <Layout links={links}>
-      <Head>
-      {renderMetaTags(seoTags.article.seo)}
-      </Head>
+      <Head>{renderMetaTags(seoTags.article.seo)}</Head>
       <article className={articleStyles.blogArticle}>
         <div className={articleStyles.authorDate}>
           <div className={articleStyles.author}>
             <Image
               data={postData.author.profilePicture.responsiveImage}
               className={articleStyles.profilePic}
-              
             />
             <h1>{postData.author.name}</h1>
           </div>
@@ -46,8 +64,8 @@ export default function Post({postData, seoTags, allPostsData}) {
       <article className={articleStyles.blogArticle}>
         <h1 className={articleStyles.headingXl}>{postData.title}</h1>
         <div className={articleStyles.articleText}>
-          <StructuredText data ={postData.content.value} />
-           </div>
+          <StructuredText data={postData.content.value} />
+        </div>
       </article>
       <LineBreaker />
 
@@ -57,6 +75,7 @@ export default function Post({postData, seoTags, allPostsData}) {
         allPostsData={allPostsData}
       />
     </Layout>
+    </>
   );
 }
 export async function getStaticPaths() {
@@ -72,7 +91,6 @@ export async function getStaticPaths() {
   };
 }
 
-
 export async function getStaticProps({ params }) {
   const post = await request({
     query: articleQuery(),
@@ -84,8 +102,7 @@ export async function getStaticProps({ params }) {
   const seoTags = await request({
     query: seoArticleQuery(),
     variables: { slug: params.slug },
-
-  })
+  });
   return {
     props: {
       postData: post.article,
