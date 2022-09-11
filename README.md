@@ -1,1 +1,1 @@
-This is a starter template for [Learn Next.js](https://nextjs.org/learn).# Ikius-task
+This is a starter template for [Learn Next.js](https://ikius-task.vercel.app/).# Ikius-task
